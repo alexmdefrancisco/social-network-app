@@ -1,0 +1,18 @@
+{
+    "editor.codeActionsOnSave": { "source.fixAll": true },
+    "eslint.validate": [
+        "javascript"
+    ],
+    "importCost.timeout": 60000,
+    "importCost.debug": true,
+    "material-icon-theme.folders.theme": "specific",
+    "material-icon-theme.folders.associations": {
+        "entities": "Class",
+        "navigation": "Routes",
+        "navigations": "Routes",
+        "redux": "Redux-store",
+        "ui": "Layout",
+        "modals": "Event",
+        "store": "Redux-store"
+    },
+}

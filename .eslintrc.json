@@ -1,0 +1,78 @@
+{
+    "env": {
+        "es6": true,
+        "node": true,
+        "jest": true,
+        "react-native/react-native": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:testing-library/react",
+        "plugin:jest-dom/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "globals": {
+        "global": "readonly"
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "import",
+        "jest-dom",
+        "jsdoc",
+        "react",
+        "react-native",
+        "react-hooks",
+        "sort-destructure-keys",
+        "sort-keys-fix",
+        "testing-library",
+        "@typescript-eslint"
+    ],
+    "overrides": [
+        {
+            "files": ["*.ts", "*.tsx"],
+            "rules": { "no-undef": "off" }
+        },
+        {
+            "files": ["*.js", "*.jsx"]
+        }
+    ],
+    "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/semi": ["error", "never"],
+        "arrow-spacing": "error",
+        "camelcase": "error",
+        "comma-dangle": ["error", { "objects": "never", "functions": "never" }],
+        "comma-spacing": ["error", { "before": false, "after": true }],
+        "eqeqeq": ["error", "always", { "null": "ignore" }],
+        "indent": ["error", 4],
+        "jsdoc/check-alignment": 1,
+        "jsx-quotes": ["error", "prefer-single"],
+        "key-spacing": ["error", { "afterColon": true, "beforeColon": false }],
+        "max-statements-per-line": ["warn", { "max": 1 }],
+        "no-multi-spaces": "error",
+        "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 0, "maxBOF": 0 }],
+        "no-trailing-spaces": "error",
+        "one-var-declaration-per-line": ["error", "initializations"],
+        "quotes": ["error", "single", { "avoidEscape": true }],
+        "react/jsx-sort-props": ["warn", { "callbacksLast": true, "ignoreCase": true, "noSortAlphabetically": false }],
+        "react/prop-types": "off",
+        "react-hooks/exhaustive-deps": "warn",
+        "react-hooks/rules-of-hooks": "error",
+        "react-native/no-unused-styles": "error",
+        "react-native/sort-styles": ["error", "asc", { "ignoreClassNames": false, "ignoreStyleProperties": false }],
+        "semi": ["error", "never"],
+        "semi-spacing": "warn",
+        "sort-destructure-keys/sort-destructure-keys": "warn",
+        "sort-imports": ["error", { "ignoreDeclarationSort": true, "allowSeparatedGroups": true }],
+        "sort-keys-fix/sort-keys-fix": ["error", "asc"],
+        "spaced-comment": ["error", "always"]
+    }
+}
