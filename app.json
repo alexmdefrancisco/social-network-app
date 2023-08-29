@@ -15,16 +15,36 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.geeksquare.social",
+      "googleServicesFile": "./src/config/credentials/GoogleService-Info.plist",
       "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "googleServicesFile": "./src/config/credentials/google-services.json",
+      "package": "com.geeksquare.social"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "944024f4-5be5-45e9-98aa-abdc00dc94dc"
+      }
+    },
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      ["expo-build-properties", 
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ]
   }
 }

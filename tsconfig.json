@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": ["es6", "dom"],
     "paths": {
       "@*": ["src/*"]
     },
     "strict": true,
+    "types": ["reflect-metadata"],
   },
   "extends": "expo/tsconfig.base",
 }

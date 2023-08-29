@@ -1,22 +1,19 @@
 import React from 'react'
 
-import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { NavigationContainer } from '@react-navigation/native'
+
+import { StoreProvider, store } from '@ui/store'
+import RootNavigator from '@ui/navigation/RootNavigator'
 
 export default function Main() {
     return (
-        <View style={styles.container}>
-            <Text>Open up App.tsx to start working on your app!</Text>
-            <StatusBar style='auto' />
-        </View>
+        <StoreProvider store={store}>
+            <SafeAreaProvider>
+                <NavigationContainer>
+                    <RootNavigator/>
+                </NavigationContainer>
+            </SafeAreaProvider>
+        </StoreProvider>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        flex: 1,
-        justifyContent: 'center'
-    }
-})
