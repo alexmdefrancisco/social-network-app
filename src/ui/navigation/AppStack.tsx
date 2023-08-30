@@ -17,7 +17,7 @@ export type AppStackProps = {
     // Profile: { userId: string },
     Profile: undefined,
     Modal: undefined,
-    Post: undefined,
+    Post: { postId: string },
     NewPostImage: undefined,
     NewPostDescription: { imageUri: string }
 }

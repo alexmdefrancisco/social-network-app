@@ -14,10 +14,8 @@ export default function ViewModel() {
             allowsEditing: true,
             aspect: [4, 3],
             mediaTypes: ImagePicker.MediaTypeOptions.All,
-            quality: 1
+            quality: 0.5
         })
-
-        console.log(result)
 
         if (!result.canceled) {
             setImage(result.assets[0].uri)

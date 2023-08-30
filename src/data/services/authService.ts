@@ -30,6 +30,18 @@ export class FirebaseAuthService implements AuthService {
         }
     }
 
+    async signIn(email: string, password: string): Promise<void> {
+        try {
+            await auth().signInWithEmailAndPassword(email, password)
+            const user = auth().currentUser
+            console.log(user)
+            // return user
+        } catch(e) {
+            console.warn(e)
+            // return null
+        }
+    }
+
     async getIdToken(): Promise<string> {
         await new Promise(resolve => setTimeout(resolve, 500))
         return 'userToken123'

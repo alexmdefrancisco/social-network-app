@@ -40,10 +40,10 @@ export default function Post({ comments, description, imageUrl }: PostProps) {
                 <Text style={styles.text}>{'nuna'}</Text>
             </View>
             <Image contentFit={'cover'} source={imageUrl} style={[styles.image, { height: height/3 }]}/>
-            <Text style={styles.description}>{'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}</Text>
+            <Text style={styles.description}>{description}</Text>
             <View style={styles.repliesContainer}>
                 <FlatList
-                    data={DATA}
+                    data={comments}
                     ListFooterComponent={() => (
                         <TouchableOpacity>
                             <Text style={styles.footerText}>{'Ver los 4 comentarios'}</Text>

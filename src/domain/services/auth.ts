@@ -5,6 +5,7 @@ export interface AuthService {
     appleSignIn(): Promise<void> // UserCredential
     googleSignIn(): Promise<void> // UserCredential
     createAccount(email: string, password: string): Promise<void>
+    signIn(email: string, password: string): Promise<void>
     changeUsername(username: string): Promise<void>
     logout(): Promise<void>
 }

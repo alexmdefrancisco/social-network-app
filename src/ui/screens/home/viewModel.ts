@@ -10,19 +10,20 @@ import { PostProps } from '@ui/components/common/post/view'
 export default function ViewModel() {
     const [data, setData] = useState<PostProps[] | undefined>()
 
-    async function getData() {
-        const snapshot = (await firestore().collection('posts').get()).docs
+    async function subscribeToPosts() {
+        firestore().collection('posts').orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
 
-        const data: PostProps[] = snapshot.map((item) => {
-            const data = item.data()
-            return { comments: data.comments, description: data.description, imageUrl: data.imageUrl }
+            const data: PostProps[] = snapshot.docs.map((item) => {
+                const data = item.data()
+                return { comments: data.comments, description: data.description, imageUrl: data.imageUrl }
+            })
+
+            setData(data)
         })
-
-        setData(data)
     }
 
     useEffect(() => {
-        getData()
+        subscribeToPosts()
     }, [])
 
     return {

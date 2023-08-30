@@ -28,8 +28,8 @@ export default function NewPostDescriptionScreen({ navigation, route }: NewPostD
     const uploadPost = viewModel.uploadPost
     const setDescription = viewModel.setDescription
 
-    function continueToHome() {
-        uploadPost(imageUri)
+    async function continueToHome() {
+        await uploadPost(imageUri)
         popToTop()
     }
 
@@ -45,7 +45,7 @@ export default function NewPostDescriptionScreen({ navigation, route }: NewPostD
                     <Text style={styles.title}>{'Nueva publicación'}</Text>
                 </View>
                 <View style={styles.textContainer}>
-                    <TouchableOpacity onPress={() => continueToHome()}>
+                    <TouchableOpacity onPress={async () => await continueToHome()}>
                         <Text style={styles.text}>{'Compartir'}</Text>
                     </TouchableOpacity>
                 </View>

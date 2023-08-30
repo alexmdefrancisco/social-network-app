@@ -8,6 +8,9 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 // Expo imports
 import { Image } from 'expo-image'
 
+// View Model imports
+import useViewModel from './viewModel'
+
 // Styles imports
 import Content from '@ui/components/styles/content'
 
@@ -17,9 +20,13 @@ import type { AppStackProps } from '@ui/navigation/AppStack'
 
 type PostScreenProps = NativeStackScreenProps<AppStackProps, 'Post'>
 
-export default function PostScreen({ navigation }: PostScreenProps) {
+export default function PostScreen({ navigation, route }: PostScreenProps) {
+
+    const postId = route.params.postId
 
     const goBack = navigation.goBack
+
+    const { post } = useViewModel({ postId })
 
     return(
         <Content>
@@ -31,7 +38,7 @@ export default function PostScreen({ navigation }: PostScreenProps) {
                 <Text style={styles.username}>{'nuna'}</Text>
                 <View style={styles.separator}/>
             </View>
-            <Post/>
+            <Post comments={post!.comments} description={post!.description} imageUrl={post!.imageUrl}/>
         </Content>
     )
 }

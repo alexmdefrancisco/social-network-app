@@ -8,6 +8,9 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 // Expo imports
 import { Image } from 'expo-image'
 
+// View Model imports
+import useViewModel from './viewModel'
+
 // Styles imports
 import Content from '@ui/components/styles/content'
 
@@ -20,6 +23,10 @@ type HomeScreenProps = NativeStackScreenProps<AppStackProps, 'Home'>
 export default function HomeScreen({ navigation }: HomeScreenProps) {
 
     const navigateTo = navigation.navigate
+
+    const viewModel = useViewModel()
+
+    const data = viewModel.data
 
     return(
         <Content>
@@ -38,8 +45,8 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
                 <View style={styles.separator}/>
             </View>
             <FlatList
-                data={[1, 2, 3, 4]}
-                renderItem={() => <Post/>}
+                data={data}
+                renderItem={({ item }) => <Post comments={item.comments} description={item.description} imageUrl={item.imageUrl}/>}
                 style={{ width: '100%' }}
             />
         </Content>

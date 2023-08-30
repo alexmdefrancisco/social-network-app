@@ -15,9 +15,9 @@ import Content from '@ui/components/styles/content'
 import type { AuthStackProps } from '@ui/navigation/AuthStack'
 import FormBox from '@ui/components/common/formBox'
 
-type SignUpScreenProps = NativeStackScreenProps<AuthStackProps, 'SignUp'>
+type SignInScreenProps = NativeStackScreenProps<AuthStackProps, 'SignIn'>
 
-export default function SignUpScreen({ navigation }: SignUpScreenProps) {
+export default function SignInScreen({ navigation }: SignInScreenProps) {
 
     const viewModel = useViewModel()
 
@@ -25,16 +25,14 @@ export default function SignUpScreen({ navigation }: SignUpScreenProps) {
     const setPassword = viewModel.setPassword
     const handleLogin = viewModel.handleLogin
 
-    const navigateTo = navigation.navigate
+    const goBack = navigation.goBack
 
     return(
         <Content>
             <Text style={styles.titleText}>
-                {'¡Bienvenido! 👋'}
+                {'¡Te echábamos de menos!'}
             </Text>
             <View style={{ alignItems: 'flex-start', flex: 1, paddingHorizontal: '5%', width: '100%' }}>
-                <FormBox placeholder={'Nombre'} title={'Nombre'} />
-                <FormBox placeholder={'Apellidos'} title={'Apellidos'} />
                 <FormBox autoCapitalize={'none'} placeholder={'ejemplo@gmail.com'} title={'Email'} onChangeText={setEmail}/>
                 <FormBox autoCapitalize={'none'} placeholder={'mínimo 8 carácteres'} secureText={true} title={'Contraseña'} onChangeText={setPassword}/>
                 <View style={styles.termsContainer}>
@@ -47,13 +45,13 @@ export default function SignUpScreen({ navigation }: SignUpScreenProps) {
                     </Text>
                 </View>
                 <TouchableOpacity style={styles.continue} onPress={() => handleLogin()}>
-                    <Text style={styles.signUpText}>{'Crear Cuenta'}</Text>
+                    <Text style={styles.singInText}>{'Iniciar Sesión'}</Text>
                 </TouchableOpacity>
-                <View style={styles.signInContainer}>
-                    <TouchableOpacity onPress={() => navigateTo('SignIn')}>
-                        <Text style={[styles.signInText, { fontFamily: 'Montserrat-Regular' }]}>
-                            {'¿Ya tienes cuenta? '}
-                            <Text style={[styles.signInText, { fontFamily: 'Montserrat-SemiBold' }]}>{'Iniciar Sesión'}</Text>
+                <View style={styles.signUpContainer}>
+                    <TouchableOpacity onPress={() => goBack()}>
+                        <Text style={[styles.signUpText, { fontFamily: 'Montserrat-Regular' }]}>
+                            {'¿No tienes cuenta? '}
+                            <Text style={[styles.signUpText, { fontFamily: 'Montserrat-SemiBold' }]}>{'Crear cuenta'}</Text>
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -70,16 +68,16 @@ const styles = StyleSheet.create({
         paddingVertical: 16,
         width: '100%'
     },
-    signInContainer: {
+    signUpContainer: {
         alignItems: 'center',
         marginTop: '5%',
         width: '100%'
     },
-    signInText: {
+    signUpText: {
         color: '#00000085',
         fontSize: 12
     },
-    signUpText: {
+    singInText: {
         color: '#ffffff',
         fontFamily: 'Montserrat-SemiBold',
         fontSize: 16

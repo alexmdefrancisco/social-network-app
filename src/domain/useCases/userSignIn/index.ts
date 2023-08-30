@@ -2,7 +2,6 @@
 import { FirebaseAuthService } from '@data/services/authService'
 
 // Domain imports
-import { UseCase } from '../useCase'
 import { AuthService } from '@domain/services/auth'
 
 export function userSignInUseCase(): UserSignInUseCase {
@@ -10,12 +9,12 @@ export function userSignInUseCase(): UserSignInUseCase {
     return new UserSignInUseCase(service)
 }
 
-class UserSignInUseCase implements UseCase<string> {
+class UserSignInUseCase {
     private authService: AuthService
 
     constructor(authService: AuthService) { this.authService = authService }
 
-    async run(): Promise<string> {
-        return await this.authService.getIdToken()
+    async run(email: string, password: string): Promise<void> {
+        return await this.authService.signIn(email, password)
     }
 }
