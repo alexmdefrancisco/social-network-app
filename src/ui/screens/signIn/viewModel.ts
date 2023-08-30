@@ -11,6 +11,7 @@ import { signIn } from '@ui/store/user/actions/asyncActions'
 export default function ViewModel() {
     const dispatch: AppDispatch = useDispatch()
 
+    const [isChecked, setChecked] = useState<boolean>(false)
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
 
@@ -20,6 +21,8 @@ export default function ViewModel() {
 
     return {
         handleLogin,
+        isChecked,
+        setChecked,
         setEmail,
         setPassword
     }

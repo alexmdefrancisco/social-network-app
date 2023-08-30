@@ -37,6 +37,8 @@ const styles = StyleSheet.create({
     },
     formTitle: {
         fontFamily: 'Montserrat-Regular',
-        fontSize: 12
+        fontSize: 12,
+        marginBottom: '1%',
+        marginTop: '4%'
     }
 })

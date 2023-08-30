@@ -5,6 +5,9 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 
+// Expo imports
+import CheckBox from 'expo-checkbox'
+
 // View Model imports
 import useViewModel from './viewModel'
 
@@ -21,6 +24,9 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
 
     const viewModel = useViewModel()
 
+    const isChecked = viewModel.isChecked
+
+    const setChecked = viewModel.setChecked
     const setEmail = viewModel.setEmail
     const setPassword = viewModel.setPassword
     const handleLogin = viewModel.handleLogin
@@ -36,13 +42,17 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
                 <FormBox autoCapitalize={'none'} placeholder={'ejemplo@gmail.com'} title={'Email'} onChangeText={setEmail}/>
                 <FormBox autoCapitalize={'none'} placeholder={'mínimo 8 carácteres'} secureText={true} title={'Contraseña'} onChangeText={setPassword}/>
                 <View style={styles.termsContainer}>
-                    <View style={{ backgroundColor: '#000000', borderRadius: 10, height: 20, width: 20 }}/>
-                    <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 12, marginLeft: '2%' }}>
-                        {'Acepto los '}
-                        <Text style={{ fontFamily: 'Montserrat-SemiBold', fontSize: 12 }}>{'Términos y condiciones '}</Text>
-                        {'y la '}
-                        <Text style={{ fontFamily: 'Montserrat-SemiBold', fontSize: 12 }}>{'Política de privacidad'}</Text>
-                    </Text>
+                    <CheckBox color={'#000000'} style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+                        <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 12, marginLeft: '2%' }}>
+                            {'Recuérdame'}
+                        </Text>
+                        <TouchableOpacity>
+                            <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 12, marginRight: '4%' }}>
+                                {'¿Has olvidado la contraseña?'}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <TouchableOpacity style={styles.continue} onPress={() => handleLogin()}>
                     <Text style={styles.singInText}>{'Iniciar Sesión'}</Text>
@@ -61,6 +71,11 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
 }
 
 const styles = StyleSheet.create({
+    checkbox: {
+        borderRadius: 10,
+        height: 20,
+        width: 20
+    },
     continue: {
         alignItems: 'center',
         backgroundColor: '#4147d5',
