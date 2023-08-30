@@ -19,7 +19,7 @@ export type AppStackProps = {
     Modal: undefined,
     Post: undefined,
     NewPostImage: undefined,
-    NewPostDescription: undefined
+    NewPostDescription: { imageUri: string }
 }
 
 const Stack = createNativeStackNavigator<AppStackProps>()

@@ -23,12 +23,13 @@ type Message = {
     username: string
 }
 
-interface PostProps {
+export interface PostProps {
     comments: Array<Message>,
-    description: string
+    description: string,
+    imageUrl: string
 }
 
-export default function Post({ comments, description }: PostProps) {
+export default function Post({ comments, description, imageUrl }: PostProps) {
 
     const { height } = Dimensions.get('window')
 
@@ -38,7 +39,7 @@ export default function Post({ comments, description }: PostProps) {
                 <Image contentFit={'cover'} source={require('@ui/assets/images/profileImage.png')} style={styles.picture}/>
                 <Text style={styles.text}>{'nuna'}</Text>
             </View>
-            <Image contentFit={'cover'} source={require('@ui/assets/images/postImage.png')} style={[styles.image, { height: height/3 }]}/>
+            <Image contentFit={'cover'} source={imageUrl} style={[styles.image, { height: height/3 }]}/>
             <Text style={styles.description}>{'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}</Text>
             <View style={styles.repliesContainer}>
                 <FlatList

@@ -4,24 +4,24 @@ import { UserModel } from '@data/models/userModel'
 export class UserService {
 
     async postUser(): Promise<void> {
-        console.log('posting')
+        throw new Error('Method not implemented.')
     }
 
     async getUser(): Promise<UserModel> {
         return new UserModel({
-            id: 'invite_1',
-            firstName: 'Maria',
-            lastName: 'Martí',
-            picture: 'https://i.pinimg.com/564x/85/41/7d/85417d8c560c5caf13c3ef6ea9a6ef0a.jpg'
+            id: 'gk_1',
+            firstName: 'Noemi',
+            lastName: 'Martínez',
+            picture: 'https://firebasestorage.googleapis.com/v0/b/social-network-geeksquare.appspot.com/o/users%2FfotoPerfil.jpg?alt=media&token=a3ed6a66-e1fa-4876-823e-f09677967196'
         })
     }
 
     async getUserById(id: string): Promise<PublicUserModel> {
         return new PublicUserModel({
             id: id,
-            name: 'Lois Meira',
-            username: 'loismeira',
-            picture: 'https://firebasestorage.googleapis.com/v0/b/invitemeapptest.appspot.com/o/photos%2Fusers%2F7N3xTwtEk3ROj61YCl93sLDmdcR2%2FT7Okwc?alt=media&token=796df7d6-2a00-4f2b-980c-4155db5ec37c'
+            name: 'Nuna',
+            username: 'nuna',
+            picture: 'https://firebasestorage.googleapis.com/v0/b/social-network-geeksquare.appspot.com/o/users%2FfotoPerfil.jpg?alt=media&token=a3ed6a66-e1fa-4876-823e-f09677967196'
         })
     }
 }

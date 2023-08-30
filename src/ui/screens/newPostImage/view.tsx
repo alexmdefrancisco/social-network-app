@@ -8,6 +8,9 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 // Expo imports
 import { Image } from 'expo-image'
 
+// View model import
+import useViewModel from './viewModel'
+
 // Styles imports
 import Content from '@ui/components/styles/content'
 import type { AppStackProps } from '@ui/navigation/AppStack'
@@ -18,6 +21,12 @@ export default function NewPostImageScreen({ navigation }: NewPostImageScreenPro
 
     const goBack = navigation.goBack
     const navigateTo = navigation.navigate
+
+    const viewModel = useViewModel()
+
+    const image = viewModel.image
+
+    const pickImage = viewModel.pickImage
 
     return(
         <Content>
@@ -31,17 +40,20 @@ export default function NewPostImageScreen({ navigation }: NewPostImageScreenPro
                     <Text style={styles.title}>{'Nueva publicación'}</Text>
                 </View>
                 <View style={styles.textContainer}>
-                    <TouchableOpacity onPress={() => navigateTo('NewPostDescription')}>
+                    <TouchableOpacity onPress={() => navigateTo('NewPostDescription', { imageUri: image })}>
                         <Text style={styles.text}>{'Siguiente'}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.separator}/>
-            <View style={styles.pickerBackground}>
-                <TouchableOpacity>
-                    <Image contentFit={'cover'} source={require('@ui/assets/icons/camera.png')} style={styles.camera}></Image>
-                </TouchableOpacity>
-            </View>
+            {image ?
+                <Image contentFit={'cover'} source={image} style={styles.image}/> :
+                <View style={styles.pickerBackground}>
+                    <TouchableOpacity onPress={() => pickImage()}>
+                        <Image contentFit={'cover'} source={require('@ui/assets/icons/camera.png')} style={styles.camera}/>
+                    </TouchableOpacity>
+                </View>
+            }
         </Content>
     )
 }
@@ -68,6 +80,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: '3%',
         width: '100%'
+    },
+    image: {
+        height: '40%',
+        width: '77%'
     },
     pickerBackground: {
         alignItems: 'center',

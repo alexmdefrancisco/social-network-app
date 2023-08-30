@@ -8,41 +8,56 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 // Expo imports
 import { Image } from 'expo-image'
 
+// View model imports
+import useViewModel from './viewModel'
+
 // Styles imports
 import Content from '@ui/components/styles/content'
 import type { AppStackProps } from '@ui/navigation/AppStack'
 
 type NewPostDescriptionScreenProps = NativeStackScreenProps<AppStackProps, 'NewPostDescription'>
 
-export default function NewPostDescriptionScreen({ navigation }: NewPostDescriptionScreenProps) {
+export default function NewPostDescriptionScreen({ navigation, route }: NewPostDescriptionScreenProps) {
+
+    const viewModel = useViewModel()
+
+    const imageUri = route.params.imageUri
 
     const goBack = navigation.goBack
     const popToTop = navigation.popToTop
+    const uploadPost = viewModel.uploadPost
+    const setDescription = viewModel.setDescription
+
+    function continueToHome() {
+        uploadPost(imageUri)
+        popToTop()
+    }
 
     return(
         <Content>
             <View style={styles.header}>
                 <View style={styles.arrowContainer}>
                     <TouchableOpacity style={styles.arrowContainer} onPress={() => goBack()}>
-                        <Image contentFit={'cover'} source={require('@ui/assets/icons/leftArrow.png')} style={styles.arrow}></Image>
+                        <Image contentFit={'cover'} source={require('@ui/assets/icons/leftArrow.png')} style={styles.arrow}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>{'Nueva publicación'}</Text>
                 </View>
                 <View style={styles.textContainer}>
-                    <TouchableOpacity onPress={() => popToTop()}>
+                    <TouchableOpacity onPress={() => continueToHome()}>
                         <Text style={styles.text}>{'Compartir'}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.separator}/>
             <View style={styles.container}>
-                <Image contentFit={'cover'} source={require('@ui/assets/images/postImage.png')} style={styles.picture}></Image>
+                <Image contentFit={'cover'} source={imageUri} style={styles.picture}/>
                 <TextInput
                     multiline
                     placeholder={'Escribe una descripción...'}
                     style={styles.textInput}
+                    onChangeText={setDescription}
                 />
             </View>
             <View style={styles.separator}/>
