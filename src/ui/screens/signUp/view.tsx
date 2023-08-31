@@ -22,7 +22,7 @@ type SignUpScreenProps = NativeStackScreenProps<AuthStackProps, 'SignUp'>
 
 export default function SignUpScreen({ navigation }: SignUpScreenProps) {
 
-    const viewModel = useViewModel()
+    const viewModel = useViewModel({ navigation })
 
     const isChecked = viewModel.isChecked
 
@@ -42,7 +42,7 @@ export default function SignUpScreen({ navigation }: SignUpScreenProps) {
                 <FormBox placeholder={'Nombre'} title={'Nombre'} />
                 <FormBox placeholder={'Apellidos'} title={'Apellidos'} />
                 <FormBox autoCapitalize={'none'} placeholder={'ejemplo@gmail.com'} title={'Email'} onChangeText={setEmail}/>
-                <FormBox autoCapitalize={'none'} placeholder={'mínimo 8 carácteres'} secureText={true} title={'Contraseña'} onChangeText={setPassword}/>
+                <FormBox autoCapitalize={'none'} placeholder={'mínimo 6 carácteres'} secureText={true} title={'Contraseña'} onChangeText={setPassword}/>
                 <View style={styles.termsContainer}>
                     <CheckBox color={'#000000'} style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
                     <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 12, marginLeft: '2%' }}>

@@ -1,3 +1,4 @@
+import { handleFirebaseAuthError } from '@data/utils'
 import { AuthService } from '@domain/services/auth'
 
 // Firebase imports
@@ -14,31 +15,24 @@ export class FirebaseAuthService implements AuthService {
     }
 
     changeUsername(username: string): Promise<void> {
-        console.log(username)
         throw new Error('Method not implemented.')
     }
 
     async createAccount(email: string, password: string): Promise<void> {
         try {
             await auth().createUserWithEmailAndPassword(email, password)
-            const user = auth().currentUser
-            console.log(user)
-            // return user
-        } catch(e) {
-            console.warn(e)
-            // return null
+        } catch(e: unknown) {
+            if(e instanceof Error) handleFirebaseAuthError(e as unknown as { code: string, message: string })
+            else throw new Error('Un error inesperado ha ocurrido')
         }
     }
 
     async signIn(email: string, password: string): Promise<void> {
         try {
             await auth().signInWithEmailAndPassword(email, password)
-            const user = auth().currentUser
-            console.log(user)
-            // return user
-        } catch(e) {
-            console.warn(e)
-            // return null
+        } catch(e: unknown) {
+            if(e instanceof Error) handleFirebaseAuthError(e as unknown as { code: string, message: string })
+            else throw new Error('Un error inesperado ha ocurrido')
         }
     }
 

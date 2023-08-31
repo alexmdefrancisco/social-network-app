@@ -5,18 +5,31 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 // Store imports
-import type { AppDispatch } from '@ui/store'
-import { signIn } from '@ui/store/user/actions/asyncActions'
+import { fetchUserData, signIn } from '@ui/store/user/actions/asyncActions'
 
-export default function ViewModel() {
+// Types imports
+import type { AppDispatch } from '@ui/store'
+import type { AuthStackProps } from '@ui/navigation/AuthStack'
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+
+type ViewModelProps = {
+    navigation: NativeStackNavigationProp<AuthStackProps, 'SignIn'>
+}
+
+export default function ViewModel({ navigation }: ViewModelProps) {
     const dispatch: AppDispatch = useDispatch()
 
     const [isChecked, setChecked] = useState<boolean>(false)
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
 
-    function handleLogin() {
-        dispatch(signIn({ email, password }))
+    async function handleLogin() {
+        try {
+            await dispatch(signIn({ email, password })).unwrap()
+            await dispatch(fetchUserData())
+        } catch(e) {
+            navigation.navigate('Modal')
+        }
     }
 
     return {

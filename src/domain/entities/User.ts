@@ -3,7 +3,6 @@ import { PublicUser } from './PublicUser'
 type ConstructorParams = {
     id: string,
     firstName: string,
-    middleName?: string,
     lastName: string,
     picture: string
 }
@@ -11,7 +10,6 @@ type ConstructorParams = {
 export class User {
     private _id: string
     public firstName: string
-    public middleName?: string
     public lastName: string
     public picture: string
     public publicProfile: PublicUser
@@ -19,16 +17,14 @@ export class User {
     constructor({
         id,
         firstName,
-        middleName,
         lastName,
         picture
     }: ConstructorParams) {
         this._id = id
         this.firstName = firstName
-        this.middleName = middleName
         this.lastName = lastName
         this.picture = picture
-        this.publicProfile = new PublicUser({ id, name: `${firstName} ${lastName}`, username: `invite_${firstName}`, picture })
+        this.publicProfile = new PublicUser({ id, username: `${firstName} ${lastName}`, picture })
     }
 
     get id(): string {
@@ -40,12 +36,12 @@ export class User {
     }
 
     get fullName(): string {
-        return [this.firstName, this.middleName, this.lastName].filter(Boolean).join(' ')
+        return [this.firstName, this.lastName].filter(Boolean).join(' ')
     }
 
     toSerializableObject() {
         const { _id, ...rest } = this
-        return { id: _id, ...rest, name: this.fullName, publicProfile: { ...this.publicProfile } }
+        return { id: _id, ...rest, publicProfile: this.publicProfile.toSerializableObject() }
     }
 }
 

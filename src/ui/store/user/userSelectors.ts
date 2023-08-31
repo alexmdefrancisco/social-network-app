@@ -1,8 +1,9 @@
 // Domain imports
-import { UserObject } from '@domain/entities/User'
+import type { UserObject } from '@domain/entities/User'
 
 // Store imports
-import { RootState } from '@ui/store/rootReducer'
+import type { RootState } from '@ui/store/rootReducer'
 
+export const selectError = (state: RootState): any => state.user.error
 export const selectIsLoggedIn = (state: RootState): boolean => state.user.isLoggedIn
 export const selectUserData = (state: RootState): UserObject | object => state.user.userObject

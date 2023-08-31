@@ -22,7 +22,7 @@ type SignInScreenProps = NativeStackScreenProps<AuthStackProps, 'SignIn'>
 
 export default function SignInScreen({ navigation }: SignInScreenProps) {
 
-    const viewModel = useViewModel()
+    const viewModel = useViewModel({ navigation })
 
     const isChecked = viewModel.isChecked
 
@@ -40,7 +40,7 @@ export default function SignInScreen({ navigation }: SignInScreenProps) {
             </Text>
             <View style={{ alignItems: 'flex-start', flex: 1, paddingHorizontal: '5%', width: '100%' }}>
                 <FormBox autoCapitalize={'none'} placeholder={'ejemplo@gmail.com'} title={'Email'} onChangeText={setEmail}/>
-                <FormBox autoCapitalize={'none'} placeholder={'mínimo 8 carácteres'} secureText={true} title={'Contraseña'} onChangeText={setPassword}/>
+                <FormBox autoCapitalize={'none'} placeholder={'mínimo 6 carácteres'} secureText={true} title={'Contraseña'} onChangeText={setPassword}/>
                 <View style={styles.termsContainer}>
                     <CheckBox color={'#000000'} style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>

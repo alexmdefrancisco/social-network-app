@@ -26,7 +26,7 @@ const Stack = createNativeStackNavigator<AppStackProps>()
 
 export default function AppStack() {
     return (
-        <Stack.Navigator id='AppStack' screenOptions={{ animation: 'fade', headerShown: false }}>
+        <Stack.Navigator id='AppStack' screenOptions={{ headerShown: false }}>
             <Stack.Group>
                 <Stack.Screen component={HomeScreen} name='Home'/>
                 <Stack.Screen component={ProfileScreen} name='Profile'/>
@@ -34,7 +34,7 @@ export default function AppStack() {
                 <Stack.Screen component={NewPostImageScreen} name='NewPostImage'/>
                 <Stack.Screen component={NewPostDescriptionScreen} name='NewPostDescription'/>
             </Stack.Group>
-            <Stack.Group screenOptions={{ contentStyle: { backgroundColor: '#00000050' }, presentation: 'transparentModal' }}>
+            <Stack.Group screenOptions={{ animation: 'fade', contentStyle: { backgroundColor: '#00000050' }, presentation: 'transparentModal' }}>
                 <Stack.Screen component={ModalScreen} name='Modal'/>
             </Stack.Group>
         </Stack.Navigator>

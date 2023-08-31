@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { fetchUserData, signIn, signUp } from './actions/asyncActions'
+import { UserObject } from '@domain/entities/User'
 
 interface UserState {
     isLoggedIn: boolean,
@@ -10,6 +11,7 @@ interface UserState {
 }
 
 const initialState: UserState = {
+    error: null,
     isLoggedIn: false,
     userObject: {}
 }
@@ -18,62 +20,54 @@ const userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
+        clearError: (state) => {
+            state.error = null
+        },
         clearUser: (state) => {
             state.isLoggedIn = false
             state.userObject = {}
-        },
-        setUser: (state, action) => {
-            state.isLoggedIn = true
-            state.userObject = action.payload
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchUserData.pending, (state) => {
-                state.status = 'loading',
-                state.isLoggedIn = true
+                state.status = 'loading'
             })
             .addCase(fetchUserData.fulfilled, (state, action) => {
                 state.status = 'idle'
                 state.userObject = { ...state.userObject, ...action.payload }
                 state.error = null
             })
-            .addCase(fetchUserData.rejected, (state, action) => {
-                console.log(action)
+            .addCase(fetchUserData.rejected, (state) => {
                 state.status = 'idle'
-                state.error = action.payload
             })
             .addCase(signIn.pending, (state) => {
-                state.status = 'loading',
-                state.isLoggedIn = true
+                state.status = 'loading'
             })
-            .addCase(signIn.fulfilled, (state, action) => {
+            .addCase(signIn.fulfilled, (state) => {
                 state.status = 'idle'
-                state.userObject = { ...state.userObject, token: action.payload }
+                state.isLoggedIn = true
                 state.error = null
             })
             .addCase(signIn.rejected, (state, action) => {
-                console.log(action)
                 state.status = 'idle'
-                state.error = action.payload
+                state.error = action.error.message
             })
             .addCase(signUp.pending, (state) => {
-                state.status = 'loading',
-                state.isLoggedIn = true
+                state.status = 'loading'
             })
-            .addCase(signUp.fulfilled, (state, action) => {
+            .addCase(signUp.fulfilled, (state) => {
                 state.status = 'idle'
-                state.userObject = { ...state.userObject, token: action.payload }
+                state.isLoggedIn = true
                 state.error = null
             })
             .addCase(signUp.rejected, (state, action) => {
-                console.log(action)
                 state.status = 'idle'
-                state.error = action.payload
+                state.error = action.error.message
             })
     }
 })
 
-export const { clearUser, setUser } = userSlice.actions
+export const { clearError, clearUser } = userSlice.actions
 
 export default userSlice.reducer
