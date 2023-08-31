@@ -1,11 +1,22 @@
 // React imports
 import { useState } from 'react'
 
+// React Redux imports
+import { useSelector } from 'react-redux'
+
 // Firebase imports
 import firestore from '@react-native-firebase/firestore'
 import storage from '@react-native-firebase/storage'
 
+// Store imports
+import { selectUserData } from '@ui/store/user/userSelectors'
+
+// Types imports
+import { PostProps } from '@ui/components/common/post/view'
+
 export default function ViewModel() {
+
+    const user = useSelector(selectUserData)
 
     const [description, setDescription] = useState<string>()
 
@@ -21,10 +32,18 @@ export default function ViewModel() {
     async function uploadPost(uri: string) {
         const imageUrl = await uploadImage(uri)
 
+        const data: PostProps = {
+            comments: [],
+            description: description || '',
+            imageUrl,
+            userId: user.id,
+            userPicture: user.picture,
+            username: user.publicProfile.username
+        }
+
         return await firestore().collection('posts').doc().set({
             createdAt: firestore.FieldValue.serverTimestamp(),
-            description,
-            imageUrl
+            ...data
         })
     }
 

@@ -45,4 +45,4 @@ export class User {
     }
 }
 
-export type UserObject = ReturnType<InstanceType<typeof User>['toSerializableObject']> & Partial<{ token: string }>
+export type UserObject = ReturnType<InstanceType<typeof User>['toSerializableObject']>

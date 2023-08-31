@@ -13,7 +13,7 @@ export default function ViewModel({ postId }: { postId: string }) {
 
     useEffect(() => {
         (async function () {
-            const post = (await firestore().doc(`posts/${postId}`).get()).data()
+            const post = (await firestore().doc(`posts/${postId}`).get()).data() as PostProps
             setPost(post)
         })()
     }, [postId])

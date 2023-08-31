@@ -7,37 +7,29 @@ import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from '
 // Expo imports
 import { Image } from 'expo-image'
 
-const DATA = [
-    {
-        message: '🔥🌙⭐️',
-        username: 'lola'
-    },
-    {
-        message: 'que suerte que tengas este!!',
-        username: 'manuu3'
-    }
-]
-
 type Message = {
     message: string,
     username: string
 }
 
 export interface PostProps {
-    comments: Array<Message>,
     description: string,
     imageUrl: string
+    comments: Array<Message>,
+    userId: string,
+    username: string,
+    userPicture: string
 }
 
-export default function Post({ comments, description, imageUrl }: PostProps) {
+export default function Post({ comments, description, imageUrl, userPicture, username }: PostProps) {
 
     const { height } = Dimensions.get('window')
 
     return(
         <View style={styles.container}>
             <View style={styles.header}>
-                <Image contentFit={'cover'} source={require('@ui/assets/images/profileImage.png')} style={styles.picture}/>
-                <Text style={styles.text}>{'nuna'}</Text>
+                <Image contentFit={'cover'} source={userPicture} style={styles.picture}/>
+                <Text style={styles.text}>{username}</Text>
             </View>
             <Image contentFit={'cover'} source={imageUrl} style={[styles.image, { height: height/3 }]}/>
             <Text style={styles.description}>{description}</Text>

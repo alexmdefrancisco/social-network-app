@@ -8,6 +8,9 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 // Expo imports
 import { Image } from 'expo-image'
 
+// View Model imports
+import useViewModel from './viewModel'
+
 // Styles imports
 import Content from '@ui/components/styles/content'
 
@@ -19,6 +22,10 @@ type ProfileScreenProps = NativeStackScreenProps<AppStackProps, 'Profile'>
 export default function ProfileScreen({ navigation }: ProfileScreenProps) {
 
     const { width } = Dimensions.get('screen')
+
+    const viewModel = useViewModel()
+
+    const user = viewModel.user
 
     const goBack = navigation.goBack
 
@@ -36,8 +43,8 @@ export default function ProfileScreen({ navigation }: ProfileScreenProps) {
                 <TouchableOpacity style={styles.arrowContainer} onPress={() => goBack()}>
                     <Image contentFit={'cover'} source={require('@ui/assets/icons/leftArrow.png')} style={styles.arrow}></Image>
                 </TouchableOpacity>
-                <Image contentFit={'cover'} source={require('@ui/assets/images/profileImage.png')} style={styles.image}/>
-                <Text style={styles.username}>{'nuna'}</Text>
+                <Image contentFit={'cover'} source={user.picture} style={styles.image}/>
+                <Text style={styles.username}>{user.publicProfile.username}</Text>
             </View>
             <FlatList
                 data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}

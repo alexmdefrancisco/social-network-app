@@ -35,10 +35,10 @@ export default function PostScreen({ navigation, route }: PostScreenProps) {
                     <Image contentFit={'cover'} source={require('@ui/assets/icons/leftArrow.png')} style={styles.arrow}></Image>
                 </TouchableOpacity>
                 <Text style={styles.title}>{'PUBLICACIÓN'}</Text>
-                <Text style={styles.username}>{'nuna'}</Text>
+                <Text style={styles.username}>{post?.username}</Text>
                 <View style={styles.separator}/>
             </View>
-            <Post comments={post!.comments} description={post!.description} imageUrl={post!.imageUrl}/>
+            <Post {...post!} />
         </Content>
     )
 }
