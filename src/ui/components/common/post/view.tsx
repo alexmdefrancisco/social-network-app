@@ -14,7 +14,7 @@ type Message = {
 }
 
 export interface PostProps {
-    postId: string,
+    postId?: string,
     disabled?: boolean,
     description: string,
     imageUrl: string
@@ -45,7 +45,7 @@ export default function Post({ comments, description, disabled, imageUrl, postId
                     data={comments}
                     ListFooterComponent={() => (
                         <TouchableOpacity>
-                            <Text style={styles.footerText}>{'Ver los 4 comentarios'}</Text>
+                            <Text style={styles.footerText}>{'Ver los comentarios'}</Text>
                         </TouchableOpacity>
                     )}
                     renderItem={({item}) => (

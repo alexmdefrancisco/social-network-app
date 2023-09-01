@@ -18,6 +18,7 @@ export default function ViewModel() {
 
     const user = useSelector(selectUserData)
 
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [description, setDescription] = useState<string>()
 
     async function uploadImage(uri: string) {
@@ -30,6 +31,7 @@ export default function ViewModel() {
     }
 
     async function uploadPost(uri: string) {
+        setIsLoading(true)
         const imageUrl = await uploadImage(uri)
 
         const data: PostProps = {
@@ -44,10 +46,11 @@ export default function ViewModel() {
         return await firestore().collection('posts').doc().set({
             createdAt: firestore.FieldValue.serverTimestamp(),
             ...data
-        })
+        }).then(() => setIsLoading(false)).catch(() => setIsLoading(false))
     }
 
     return {
+        isLoading,
         setDescription,
         uploadPost
     }

@@ -9,6 +9,7 @@ import * as ImagePicker from 'expo-image-picker'
 
 // Firebase imports
 import firestore from '@react-native-firebase/firestore'
+import storage from '@react-native-firebase/storage'
 
 // Store imports
 import { selectUserData } from '@ui/store/user/userSelectors'
@@ -36,6 +37,15 @@ export default function ViewModel({ profilePicture, userId: uid }: { profilePict
         })
     }
 
+    async function uploadImage(uri: string) {
+        const response = await fetch(uri)
+        const blob = await response.blob()
+        const fileRef = storage().ref().child(`users/${userId}`)
+        await fileRef.put(blob)
+
+        return await fileRef.getDownloadURL()
+    }
+
     async function pickPicture() {
         // No permissions request is necessary for launching the image library
         const result = await ImagePicker.launchImageLibraryAsync({
@@ -47,7 +57,8 @@ export default function ViewModel({ profilePicture, userId: uid }: { profilePict
 
         if (!result.canceled) {
             setPicture(result.assets[0].uri)
-            await firestore().doc(`users/${userId}`).set({ picture: result.assets[0].uri }, { merge: true })
+            const imageUrl = await uploadImage(result.assets[0].uri)
+            await firestore().doc(`users/${userId}`).set({ picture: imageUrl }, { merge: true })
         }
     }
 

@@ -2,7 +2,7 @@
 import React from 'react'
 
 // React Native imports
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 // Expo imports
@@ -21,6 +21,7 @@ export default function NewPostDescriptionScreen({ navigation, route }: NewPostD
 
     const viewModel = useViewModel()
 
+    const isLoading = viewModel.isLoading
     const imageUri = route.params.imageUri
 
     const goBack = navigation.goBack
@@ -45,9 +46,12 @@ export default function NewPostDescriptionScreen({ navigation, route }: NewPostD
                     <Text style={styles.title}>{'Nueva publicación'}</Text>
                 </View>
                 <View style={styles.textContainer}>
-                    <TouchableOpacity onPress={async () => await continueToHome()}>
-                        <Text style={styles.text}>{'Compartir'}</Text>
-                    </TouchableOpacity>
+                    {isLoading ?
+                        <ActivityIndicator color={'#4147d5'}/> :
+                        <TouchableOpacity onPress={async () => await continueToHome()}>
+                            <Text style={styles.text}>{'Compartir'}</Text>
+                        </TouchableOpacity>
+                    }
                 </View>
             </View>
             <View style={styles.separator}/>
