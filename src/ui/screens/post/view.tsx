@@ -38,7 +38,7 @@ export default function PostScreen({ navigation, route }: PostScreenProps) {
                 <Text style={styles.username}>{post?.username}</Text>
                 <View style={styles.separator}/>
             </View>
-            <Post {...post!} />
+            <Post {...post!} disabled={true}/>
         </Content>
     )
 }

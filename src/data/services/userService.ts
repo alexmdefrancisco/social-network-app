@@ -1,4 +1,5 @@
 import { PublicUserModel } from '@data/models/publicUserModel'
+import { User } from '@domain/entities/User'
 import { UserModel } from '@data/models/userModel'
 
 // Firebase imports
@@ -10,8 +11,10 @@ import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
 
 export class UserService {
 
-    async postUser(): Promise<void> {
-        throw new Error('Method not implemented.')
+    async postUser(user: Partial<User>): Promise<UserModel> {
+        const userId = this.getCurrentUserId()
+
+        return await this.postUserData(userId, user)
     }
 
     async getUser(): Promise<UserModel> {
@@ -49,6 +52,21 @@ export class UserService {
             throw new Error('Document exists but no data was found.')
 
         return userData
+    }
+
+    private async postUserData(userId: string, user: Partial<User>): Promise<UserModel> {
+        const data = {
+            firstName: user.firstName || '',
+            lastName: user.lastName || '',
+            picture: 'https://firebasestorage.googleapis.com/v0/b/social-network-geeksquare.appspot.com/o/users%2Fpicture.png?alt=media&token=82694066-f232-44de-9eb8-c301581937cb'
+        }
+
+        await firestore().doc(`users/${userId}`).set(data, { merge: true })
+
+        return new UserModel({
+            id: userId,
+            ...data
+        })
     }
 
     private mapToUserModel(userId: string, user: FirebaseFirestoreTypes.DocumentData): UserModel {

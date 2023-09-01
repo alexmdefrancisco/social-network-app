@@ -14,25 +14,32 @@ import useViewModel from './viewModel'
 // Styles imports
 import Content from '@ui/components/styles/content'
 
-// Components imports
+// Types imports
 import type { AppStackProps } from '@ui/navigation/AppStack'
+import type { PostProps } from '@ui/components/common/post/view'
 
 type ProfileScreenProps = NativeStackScreenProps<AppStackProps, 'Profile'>
 
-export default function ProfileScreen({ navigation }: ProfileScreenProps) {
+export default function ProfileScreen({ navigation, route }: ProfileScreenProps) {
 
     const { width } = Dimensions.get('screen')
 
-    const viewModel = useViewModel()
+    const viewModel = useViewModel({ profilePicture: route.params.picture, userId: route.params.userId })
 
+    const data = viewModel.data
     const user = viewModel.user
+    const picture = viewModel.picture
 
+    const navigateTo = navigation.navigate
     const goBack = navigation.goBack
+    const pickPicture = viewModel.pickPicture
 
-    function renderItem() {
+    const username = route.params.username || user.publicProfile.username
+
+    function renderItem({ item }: { item: PostProps }) {
         return(
-            <TouchableOpacity>
-                <Image contentFit={'cover'} source={require('@ui/assets/images/postImage.png')} style={{ borderColor: '#ffffff', borderWidth: 1, height: width/3, width: width/3 }}/>
+            <TouchableOpacity onPress={() => navigateTo('Post', { postId: item.postId })}>
+                <Image contentFit={'cover'} source={item.imageUrl} style={{ borderColor: '#ffffff', borderWidth: 1, height: width/3, width: width/3 }}/>
             </TouchableOpacity>
         )
     }
@@ -43,13 +50,16 @@ export default function ProfileScreen({ navigation }: ProfileScreenProps) {
                 <TouchableOpacity style={styles.arrowContainer} onPress={() => goBack()}>
                     <Image contentFit={'cover'} source={require('@ui/assets/icons/leftArrow.png')} style={styles.arrow}></Image>
                 </TouchableOpacity>
-                <Image contentFit={'cover'} source={user.picture} style={styles.image}/>
-                <Text style={styles.username}>{user.publicProfile.username}</Text>
+                <TouchableOpacity onPress={() => pickPicture()}>
+                    <Image contentFit={'cover'} source={picture} style={styles.image}/>
+                </TouchableOpacity>
+                <Text style={styles.username}>{username}</Text>
             </View>
             <FlatList
-                data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                data={data}
                 numColumns={3}
                 renderItem={renderItem}
+                style={{ width: '100%' }}
             />
         </Content>
     )

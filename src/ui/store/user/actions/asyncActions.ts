@@ -1,12 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 // Domain imports
-import { getUserUseCase, userSignInUseCase, userSignUpUseCase } from '@domain/useCases'
+import { getUserUseCase, postUserUseCase, userSignInUseCase, userSignUpUseCase } from '@domain/useCases'
 
 export const fetchUserData = createAsyncThunk('user/fetchUserData', async function () {
     const interactor = getUserUseCase()
     const user = await interactor.run()
     return user.toSerializableObject()
+})
+
+export const postUser = createAsyncThunk('user/postUser', async function ({ firstName, lastName }: { firstName: string, lastName: string }) {
+    const interactor = postUserUseCase()
+    const user = await interactor.run(firstName, lastName)
+    return user?.toSerializableObject()
 })
 
 export const signIn = createAsyncThunk('user/signIn', async function ({ email, password }: { email: string, password: string }) {

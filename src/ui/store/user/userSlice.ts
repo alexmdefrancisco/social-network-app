@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { fetchUserData, signIn, signUp } from './actions/asyncActions'
+import { fetchUserData, postUser, signIn, signUp } from './actions/asyncActions'
 import { UserObject } from '@domain/entities/User'
 
 interface UserState {
@@ -39,6 +39,17 @@ const userSlice = createSlice({
                 state.error = null
             })
             .addCase(fetchUserData.rejected, (state) => {
+                state.status = 'idle'
+            })
+            .addCase(postUser.pending, (state) => {
+                state.status = 'loading'
+            })
+            .addCase(postUser.fulfilled, (state, action) => {
+                state.status = 'idle'
+                state.userObject = { ...state.userObject, ...action.payload }
+                state.error = null
+            })
+            .addCase(postUser.rejected, (state) => {
                 state.status = 'idle'
             })
             .addCase(signIn.pending, (state) => {

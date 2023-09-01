@@ -37,7 +37,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
                         <TouchableOpacity onPress={() => navigateTo('NewPostImage')}>
                             <Image contentFit={'contain'} source={require('@ui/assets/images/addpost.png')} style={styles.icon}/>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigateTo('Profile')}>
+                        <TouchableOpacity onPress={() => navigateTo('Profile', {})}>
                             <Image contentFit={'contain'} source={require('@ui/assets/images/profile.png')} style={styles.icon}/>
                         </TouchableOpacity>
                     </View>
@@ -46,7 +46,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
             </View>
             <FlatList
                 data={data}
-                renderItem={({ item }) => <Post comments={item.comments} description={item.description} imageUrl={item.imageUrl}/>}
+                renderItem={({ item }) => <Post {...item}/>}
                 style={{ width: '100%' }}
             />
         </Content>

@@ -3,6 +3,7 @@ import React from 'react'
 
 // React Native imports
 import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 // Expo imports
 import { Image } from 'expo-image'
@@ -13,6 +14,8 @@ type Message = {
 }
 
 export interface PostProps {
+    postId: string,
+    disabled?: boolean,
     description: string,
     imageUrl: string
     comments: Array<Message>,
@@ -21,17 +24,21 @@ export interface PostProps {
     userPicture: string
 }
 
-export default function Post({ comments, description, imageUrl, userPicture, username }: PostProps) {
+export default function Post({ comments, description, disabled, imageUrl, postId, userId, userPicture, username }: PostProps) {
 
     const { height } = Dimensions.get('window')
 
+    const navigation = useNavigation()
+
     return(
         <View style={styles.container}>
-            <View style={styles.header}>
+            <TouchableOpacity disabled={disabled} style={styles.header} onPress={() => navigation.navigate('Profile', { picture: userPicture, userId, username })}>
                 <Image contentFit={'cover'} source={userPicture} style={styles.picture}/>
                 <Text style={styles.text}>{username}</Text>
-            </View>
-            <Image contentFit={'cover'} source={imageUrl} style={[styles.image, { height: height/3 }]}/>
+            </TouchableOpacity>
+            <TouchableOpacity disabled={disabled} onPress={() => navigation.navigate('Post', { postId })}>
+                <Image contentFit={'cover'} source={imageUrl} style={[styles.image, { height: height/3 }]}/>
+            </TouchableOpacity>
             <Text style={styles.description}>{description}</Text>
             <View style={styles.repliesContainer}>
                 <FlatList

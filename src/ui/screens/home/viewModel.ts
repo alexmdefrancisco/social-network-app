@@ -17,14 +17,14 @@ export default function ViewModel() {
 
     // const user = useSelector(selectUserData)
 
-    const [data, setData] = useState<PostProps[] | undefined>()
+    const [data, setData] = useState<PostProps[]>([])
 
     async function subscribeToPosts() {
         firestore().collection('posts').orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
 
             const data: PostProps[] = snapshot.docs.map((item) => {
-                const data = item.data()
-                return { comments: data.comments, description: data.description, imageUrl: data.imageUrl }
+                const data = item.data() as PostProps
+                return { ...data, postId: item.id }
             })
 
             setData(data)

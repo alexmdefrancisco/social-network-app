@@ -13,6 +13,12 @@ export class UserRepositoryImpl implements UserRepository {
         throw new Error('Method not implemented.')
     }
 
+    async postUser(user: Partial<User>): Promise<User | null> {
+        const data = await this.service.postUser(user)
+
+        return data.toDomain()
+    }
+
     async getUser(): Promise<User> {
         const data = await this.service.getUser()
 
@@ -25,7 +31,7 @@ export class UserRepositoryImpl implements UserRepository {
         return data.toDomain()
     }
 
-    async update(id: string, user: Partial<User>): Promise<User | null> {
+    async update(user: Partial<User>): Promise<User | null> {
         throw new Error('Method not implemented.')
     }
 

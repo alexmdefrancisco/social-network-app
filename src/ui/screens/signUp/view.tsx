@@ -27,6 +27,8 @@ export default function SignUpScreen({ navigation }: SignUpScreenProps) {
     const isChecked = viewModel.isChecked
 
     const setChecked = viewModel.setChecked
+    const setFirstName = viewModel.setFirstName
+    const setLastName = viewModel.setLastName
     const setEmail = viewModel.setEmail
     const setPassword = viewModel.setPassword
     const handleLogin = viewModel.handleLogin
@@ -39,8 +41,8 @@ export default function SignUpScreen({ navigation }: SignUpScreenProps) {
                 {'¡Bienvenido! 👋'}
             </Text>
             <View style={{ alignItems: 'flex-start', flex: 1, paddingHorizontal: '5%', width: '100%' }}>
-                <FormBox placeholder={'Nombre'} title={'Nombre'} />
-                <FormBox placeholder={'Apellidos'} title={'Apellidos'} />
+                <FormBox placeholder={'Nombre'} title={'Nombre'} onChangeText={setFirstName}/>
+                <FormBox placeholder={'Apellidos'} title={'Apellidos'} onChangeText={setLastName}/>
                 <FormBox autoCapitalize={'none'} placeholder={'ejemplo@gmail.com'} title={'Email'} onChangeText={setEmail}/>
                 <FormBox autoCapitalize={'none'} placeholder={'mínimo 6 carácteres'} secureText={true} title={'Contraseña'} onChangeText={setPassword}/>
                 <View style={styles.termsContainer}>

@@ -14,8 +14,7 @@ import NewPostDescriptionScreen from '@ui/screens/newPostDescription'
 
 export type AppStackProps = {
     Home: undefined,
-    // Profile: { userId: string },
-    Profile: undefined,
+    Profile: { picture?: string, username?: string, userId?: string },
     Modal: undefined,
     Post: { postId: string },
     NewPostImage: undefined,
